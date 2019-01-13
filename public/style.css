@@ -1,0 +1,25 @@
+.App {
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+body {
+  background-color: #131827;
+  margin: 0;
+}
+
+header h1 {
+  background-color: #131827;
+  font-size: 38px;
+  line-height: 38px;
+  font-weight: 300;
+  margin: 0;
+  padding: 20px;
+  color: #eb7f00;
+}
+
+header img
+{
+  float: right; 
+  margin: 15px;
+}

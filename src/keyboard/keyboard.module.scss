@@ -1,0 +1,87 @@
+@import '../dimensions.scss';
+
+%common
+{
+    height: 100%;
+    font-size: 10px;
+    cursor:pointer;
+    overflow: hidden;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    height: $keyheight;
+}
+
+
+.white
+{
+    width: $keyWidth;
+    @extend %common;
+    color: #CCC;
+    background-color: #FFFFFA;
+    border-right: black 1px solid;
+    border-radius: 0 0 4px 4px;
+}
+.black
+{
+    @extend %common;
+    color: black;
+    background-color: #33333A;
+    margin-bottom: 20px;
+    z-index: 1;
+    height: 66%;
+    width: $blackKeyWidth;
+    border-bottom: 10px solid black;
+    overflow: hidden;
+    border-radius: 0 0 3px 3px;
+    margin-left: - $blackKeyOffsetStandard;
+    margin-right: - $blackKeyOffsetStandard;
+}
+
+.black:hover
+{
+    background-color: #454545;
+    border-color: #333;
+}
+
+.white:hover
+{
+    background-color: #EEE;
+}
+
+.board
+{
+    position: absolute;
+    height: $keyheight + 30px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-x: scroll;
+    overflow-y: none;
+    white-space: nowrap;
+    text-align: center;
+    background: black;
+    border-top: 5px solid black;
+}
+
+/* Margins for correct appearance */
+// This CSS is slightly crazy
+
+.offsetRight
+{
+    @extend .black;
+    margin-left: - ($blackKeyOffsetStandard - $blackKeyOffsetEdges);
+    margin-right: - ($blackKeyOffsetStandard + $blackKeyOffsetEdges);
+}
+
+.offsetLeft
+{
+    @extend .black;
+    margin-right: - ($blackKeyOffsetStandard - $blackKeyOffsetEdges);
+    margin-left: - ($blackKeyOffsetStandard + $blackKeyOffsetEdges);
+}
+

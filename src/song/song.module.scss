@@ -1,0 +1,91 @@
+%common
+{
+    background-color: #4d4f5b;
+    display: inline-block;
+    height: 12em;
+    width: 12em;
+    margin: 20px 0 0 20px;
+    padding: 30px;
+
+    color: white;
+    transition: all .2s ease-out; 
+    border: none;
+    vertical-align: middle;
+    opacity: 1;
+
+    &:hover
+    {
+        transform: scale(1.03); 
+        cursor: pointer;
+        opacity: 1
+    }
+
+    font-size: 15px;
+    h2
+    {
+        font-weight: 300;
+        margin: 0;
+
+    }
+}
+
+
+
+.base
+{
+    @extend %common;
+}
+
+%background-standard
+{
+    background-size: 30%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+
+.new
+{
+    @extend %common;
+    @extend %background-standard;
+    background-color: white;
+    color: black;
+    background-image: url('/assets/circle-solid.svg');
+    h2
+    {
+        text-align: center;
+        margin-top: -0.5em;
+    }
+
+}
+
+.container
+{
+    text-align: left;
+}
+
+.recording
+{
+    @extend .new;
+    background-color: #db000a;
+    background-image: none;
+    position: relative;
+}
+
+.recording:before {
+    @extend %background-standard;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120px;
+    height: 120px;
+    margin:-60px 0 0 -60px;
+    background-size: 60%;
+    background-image: url('/assets/circle-notch-solid.svg');
+    animation:spin 4s linear infinite;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }

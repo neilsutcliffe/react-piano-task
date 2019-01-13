@@ -1,0 +1,10 @@
+// mm to pixel
+$scaleFactor: 1.8;
+
+$keyWidth: 22px * $scaleFactor;
+$blackKeyWidth: 13px * $scaleFactor;
+$blackKeyOffsetStandard: $blackKeyWidth / 2;
+$blackKeyOffsetEdges: 1.5px * $scaleFactor;
+$keyheight: 150px * $scaleFactor;
+
+$headerHeight: 80px;
