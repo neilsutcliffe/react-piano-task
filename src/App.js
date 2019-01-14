@@ -1,19 +1,30 @@
 import React, { Component } from 'react';
+
+import gql from 'graphql-tag'
+import { Mutation, Query } from 'react-apollo'
+
+// Components
+import Song from './song'
+import NewSong from './song/record'
 import Keyboard from './keyboard'
-import Song from './song/existingSong'
-import NewSong from './song/newSong'
+
+// Audio Classes
 import Sampler from './lib/sampler'
 import Recorder from './lib/recorder'
 import Player from './lib/player'
+
+// Useful functions
 import { getAllNos } from './lib/notes';
 import titleGenerator from './lib/titleGenerator';
 
 import style from './app.module.scss'
 
-// Main Logic for playback and recording
-let sampler = new Sampler(getAllNos());
-let player = new Player(sampler);
-let recorder = new Recorder();
+// Main Logic for playback and recording. These are reused for every recording/song
+const sampler = new Sampler(getAllNos());
+const player = new Player(sampler);
+const recorder = new Recorder();
+
+const songQuery = gql` { songs { id title notes } } `;
 
 class App extends Component {
   constructor() {
@@ -35,29 +46,9 @@ class App extends Component {
     }
   }
   toggleRecord = () => {
-    if (this.state.recording) {
-      // Save song to list
-      let notes = recorder.TakeRecording()
-
-      // Add song to list if any notes
-      if (notes.length > 0) {
-        let newSongList = this.state.songs
-        newSongList.push({
-          title: titleGenerator(),
-          notes,
-          id: newSongList.length
-        });
-
-        this.setState({ songs: newSongList })
-      }
-    }
-
     this.setState({ recording: !this.state.recording })
   }
   playSong = (song) => {
-    // Stop existing song
-    if (player !== null) player.stopSong();
-
     player.playSong(song.notes)
   }
   render() {
@@ -68,11 +59,41 @@ class App extends Component {
           <h1>React Piano Task</h1>
         </header>
 
+
         <div className={style.container}>
-          {
-            this.state.songs.map(thisSong => <Song key={thisSong.id} song={thisSong} onClick={_ => this.playSong(thisSong)} />)
-          }
-          <NewSong empty={true} recording={this.state.recording} onClick={this.toggleRecord} />
+          <Query query={songQuery}>
+            {({ loading, error, data }) => {
+              if (data === undefined) return null;
+              if (loading) return "Loading"
+              if (error) return `Error! ${error.message}`;
+              return (
+                data.songs.map(thisSong =>
+                  <Song key={thisSong.id} song={thisSong} onClick={_ => this.playSong(thisSong)} />
+                )
+              )
+            }}
+          </Query>
+
+          <Mutation
+            mutation={gql` mutation addSong($song: SongInput!) { addSong(input: $song) { id notes title } }`}
+            refetchQueries={[{ query: songQuery }]}>
+            {(addSong, { loading, error }) => {
+              const handleStop = () => {
+                let notes = recorder.TakeRecording()
+                let song = {
+                  title: titleGenerator(),
+                  notes: JSON.stringify(notes)
+                };
+
+                addSong({ variables: { song } })
+                this.toggleRecord();
+              }
+
+              if (this.state.recording) return <NewSong recording={true} onClick={handleStop} />
+              else return <NewSong recording={false} onClick={this.toggleRecord} />
+            }}
+
+          </Mutation>
         </div>
 
         <Keyboard sampler={sampler} keyDown={this.startNote} keyUp={this.endNote} />

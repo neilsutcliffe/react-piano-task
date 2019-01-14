@@ -1,5 +1,6 @@
+import { type } from "os";
 
-// This class has to be created for each song at this time. TODO: fix up
+// The can be reused and is cleared on stop. No pause functionality at this time.
 export default class {
 
     constructor(sampler) {
@@ -9,22 +10,28 @@ export default class {
         this.endTimeoutes = []
     }
 
-    playSong(songNotes) {
-        // Removing console.log breaks first note? Brittle?
-        console.log(songNotes)
+    playSong(notesToPlay) {
 
-        var times = songNotes.map(note => note.start)
+        this.stopSong();
+
+        // Handle JSON notes
+        if (typeof notesToPlay === "string") notesToPlay = JSON.parse(notesToPlay);
+
+        var times = notesToPlay.map(note => note.start)
         var lowest = Math.min(...times)
 
-        songNotes.forEach(note => {
-            this.startTimeouts.push(setTimeout(() => {
-                if (!this.endedEarly) this.sampler.playSound(note.midiNo)
-            }, note.start - lowest))
+        // Give time to fade out if needed.
+        setTimeout(() => {
+            notesToPlay.forEach(note => {
+                this.startTimeouts.push(setTimeout(() => {
+                    if (!this.endedEarly) this.sampler.playSound(note.midiNo)
+                }, note.start - lowest))
 
-            this.endTimeoutes.push(setTimeout(() => {
-                this.sampler.muteSound(note.midiNo)
-            }, note.end - lowest));
-        })
+                this.endTimeoutes.push(setTimeout(() => {
+                    this.sampler.muteSound(note.midiNo)
+                }, note.end - lowest));
+            })
+        }, 100)
     }
 
     stopSong = () => {

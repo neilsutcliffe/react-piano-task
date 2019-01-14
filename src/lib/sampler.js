@@ -57,7 +57,6 @@ export default class {
         // foreach swallows scope
         var _this = this;
         Object.keys(this.audioSource).forEach(function (key, index) {
-            console.log(key);
             _this.mute(key, true)
         });
     }

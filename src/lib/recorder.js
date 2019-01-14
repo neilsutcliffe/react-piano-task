@@ -1,6 +1,7 @@
 // Shorthand to get current time in MS. Used for recording, which is normalised to zero on note playback
 const CurrentMs = _ => new Date().getTime()
 
+// Records all notes coming in, with the time recieved. This can be played back using the Player class.
 export default class {
 
     openNotes = []

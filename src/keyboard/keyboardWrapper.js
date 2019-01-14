@@ -13,6 +13,11 @@ const getKey = (element) => {
  * rather than click keys, and broadcast the keys out of the keyboard easier
  */
 export default class extends Component {
+    constructor() {
+        super()
+        this.state = { pressed: false };
+    }
+
     componentWillMount = () => {
         document.addEventListener("mousedown", this.startPress);
         document.addEventListener("mouseup", this.endPress)
@@ -41,15 +46,17 @@ export default class extends Component {
     startPress = (startEvent) => {
         document.addEventListener("mousemove", this.triggerKey);
         this.triggerKey(startEvent)
+        this.setState({ pressed: true })
     }
     endPress = (endEvent) => {
         document.removeEventListener("mousemove", this.triggerKey);
         this.triggerKey(null)
+        this.setState({ pressed: false })
     }
 
-    render() {
+    render = () => {
         return (
-            <div className={style.board}>
+            <div className={this.state.pressed ? style.pressedBoard : style.board}>
                 {this.props.children}
             </div>
         )

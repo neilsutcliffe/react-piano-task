@@ -1,5 +1,8 @@
 @import '../dimensions.scss';
 
+$whitekey: #FAFAFA;
+$blackKey: #333;
+
 %common
 {
     height: 100%;
@@ -21,21 +24,20 @@
 {
     width: $keyWidth;
     @extend %common;
-    color: #CCC;
-    background-color: #FFFFFA;
+    background-color: $whitekey;
     border-right: black 1px solid;
     border-radius: 0 0 4px 4px;
 }
+
 .black
 {
     @extend %common;
-    color: black;
-    background-color: #33333A;
+    background-color: $blackKey;
     margin-bottom: 20px;
     z-index: 1;
     height: 66%;
     width: $blackKeyWidth;
-    border-bottom: 10px solid black;
+    border-bottom: 10px solid darken($blackKey, 10);
     overflow: hidden;
     border-radius: 0 0 3px 3px;
     margin-left: - $blackKeyOffsetStandard;
@@ -44,13 +46,12 @@
 
 .black:hover
 {
-    background-color: #454545;
-    border-color: #333;
+    background-color: darken($blackKey, 2);
 }
 
 .white:hover
 {
-    background-color: #EEE;
+    background-color: darken($whitekey, 5);
 }
 
 .board
@@ -67,6 +68,24 @@
     background: black;
     border-top: 5px solid black;
 }
+
+.pressedBoard
+{
+    @extend .board;
+}
+
+.pressedBoard .white:hover
+{
+    height: $keyheight - 2px;
+    background: linear-gradient(88deg, darken($whitekey, 25) 0%, darken($whitekey, 10) 21%);
+}
+
+.pressedBoard .black:hover
+{
+    background-color: darken(#333, 5);
+    border-bottom-color: black;
+}
+
 
 /* Margins for correct appearance */
 // This CSS is slightly crazy

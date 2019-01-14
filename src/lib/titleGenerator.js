@@ -1,10 +1,11 @@
 /**
  * This file is an attempt to be more fun than 'Untitled'. The user can only make prefix.length * dinosaurs.length * suffix.length files before we run out.
+ * Maybe with more variety it can be like a GUID, but readable.
  */
 
 const prefix = ['electric', 'symbolic', 'prehistoric', 'posthistoric', 'shambolic', 'creative', 'alternative', 'original', 'triangular', 'rectangular', 'pentagonal', 'hexagonal', 'rhomboid']
 const dinosaurs = ['tyrannosaurus', 'stegosaurus', 'utahraptor', 'dilophosaurus', 'velociraptor', 'velociraptor', 'allosaurus', 'triceratops', 'apatosaurus', 'brachiosaurus', 'ankylosaurus', 'diplodocus', 'iguanodon', 'deinonychus', 'spinosaurus', 'brontosaurus']
-const suffix = ['malice', 'propoganda', 'junior', 'mayham', 'chalice', 'maxmiumus', 'minimus', 'hustle', 'commute', 'dictionary', 'university', 'administration', 'society', 'goverment', 'collective', 'collaboration']
+const suffix = ['malice', 'propoganda', 'junior', 'mayham', 'chalice', 'maxmiumus', 'minimus', 'hustle', 'commute', 'dictionary', 'university', 'administration', 'society', 'government', 'collective', 'collaboration']
 
 
 // https://stackoverflow.com/questions/5915096/get-random-item-from-javascript-array
