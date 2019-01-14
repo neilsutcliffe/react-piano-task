@@ -12,6 +12,10 @@
     border: none;
     vertical-align: middle;
     opacity: 1;
+    background-image: url('/assets/play-solid.svg');
+    background-repeat: no-repeat;
+    background-size: 15%;
+    background-position: 85% 85%;
 
     &:hover
     {
@@ -51,10 +55,13 @@
     background-color: white;
     color: black;
     background-image: url('/assets/circle-solid.svg');
+    background-size: 15%;
+    background-position: 85% 85%;
     h2
     {
+        font-size: 2em;
         text-align: center;
-        margin-top: -0.5em;
+        margin-top: 1em;
     }
 
 }
@@ -70,6 +77,11 @@
     background-color: #db000a;
     background-image: none;
     position: relative;
+
+    h2
+    {
+        display: none;
+    }
 }
 
 .recording:before {

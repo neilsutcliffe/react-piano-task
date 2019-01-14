@@ -84,8 +84,9 @@ $blackKey: #333;
 
 .pressedBoard .black:hover
 {
-    background-color: darken(#333, 5);
+    background-color: darken($blackKey, 5);
     border-bottom-color: black;
+    border-left-color: $blackKey;
 }
 
 
