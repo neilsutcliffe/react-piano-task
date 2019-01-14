@@ -36,10 +36,12 @@ $blackKey: #333;
     margin-bottom: 20px;
     z-index: 1;
     height: 66%;
-    width: $blackKeyWidth;
+    width: $blackKeyWidth - 6px;
     border-bottom: 10px solid darken($blackKey, 10);
     overflow: hidden;
-    border-radius: 0 0 3px 3px;
+    border-radius: 0 0 2px 2px;
+    border-left: 3px solid lighten($blackKey, 10);
+    border-right: 3px solid darken($blackKey, 10);
     margin-left: - $blackKeyOffsetStandard;
     margin-right: - $blackKeyOffsetStandard;
 }
