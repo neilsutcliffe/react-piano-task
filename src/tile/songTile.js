@@ -1,4 +1,4 @@
-import styles from './song.module.scss'
+import styles from './tile.module.scss'
 import React, { Component } from 'react';
 
 export default class Song extends Component {

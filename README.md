@@ -9,9 +9,9 @@
 * Sampler, player, and recorder are seperated into seperate files for ease of refactoring
 * No redux yet, but everything is orchestrated on the app level.
 * Semi-permanent server. No SQL database, but stored in a persisted node variable.
+* Title editing and automatic saving
 
 ## TODO / Technical Debt
 
-* The rest of the features
 * We store songs as JSON Strings on the GraphQL
 * A power cut will lose all your songs

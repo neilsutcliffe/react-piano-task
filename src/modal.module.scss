@@ -1,0 +1,94 @@
+
+.darken
+{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 1050;
+
+    .modal
+    {
+        position: absolute;
+        left: 50%;
+        top: 40%;
+        transform: translate(-50%,-50%);
+        margin: auto;
+        width: 50vw;
+        background-color: #0b0f19;
+        border: 2px solid #131827;
+        border-radius: 6px;
+        color: white;
+        box-shadow: 0px 2px 14px 1px black;
+    }
+}
+
+
+
+.modal h3
+{
+    background-color: #131827;
+    color: #eb7f00;
+    padding: 0.5em 1em;
+    font-size: 24px;
+}
+
+.modalContent
+{
+    padding: 20px;
+    text-align: center;
+}
+
+.modalContent p
+{
+    margin-bottom: 2em;
+    margin-top: 1em;
+}
+
+.modalContent input
+{
+    text-align: center;
+    font-size: 20px;
+    height: 42px;
+    background-color: #0b0f19;
+    border: 2px solid #4d4f5b;
+    color: white;
+    border-radius: 3px;
+    padding: 0 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.modalContent input[type='button']
+{
+    background-color: #eb7f00;
+    width: 47%;
+    border: none;
+    cursor: pointer;
+
+    &:hover
+    {
+        background-color: lighten(#eb7f00, 10)
+    }
+}
+
+.modalContent input[type='button'].error
+{
+    background-color: #db000a;
+    
+    &:hover
+    {
+        background-color: lighten(#db000a, 10)
+    }
+}
+
+.modalContent input[type='button'] + input[type='button'] 
+{
+    margin: 0;
+    margin-top: 5%;
+    margin-left: 5%;
+
+}
+

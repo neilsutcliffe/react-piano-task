@@ -1,4 +1,4 @@
-import style from './song.module.scss'
+import style from './tile.module.scss'
 import React from 'react';
 
 export default ({ recording, onClick }) => {

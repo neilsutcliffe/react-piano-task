@@ -1,9 +1,12 @@
-import { noToName } from './notes.js';
+import { noToName, getAllNos } from './notes';
+
+// Get all the midi numbers
+const numbers = getAllNos();
 
 // TODO. No indication of if sampler is ready
 // TODO. Looping for notes. Bass notes get cut off early if too long
 export default class {
-    constructor(numbers) {
+    constructor() {
         if (numbers != null && numbers.length > 0) {
             var _this = this;
             numbers.forEach(_this.addSound)

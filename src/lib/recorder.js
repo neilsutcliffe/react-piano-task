@@ -28,12 +28,14 @@ export default class {
         this.openNotes = this.openNotes.filter(note => note.midiNo !== midiNo)
     }
 
-    TakeRecording = () => {
+    Get = () => {
         // Reset and return notes to save
         // Open notes are lost. 
-        var result = this.notes;
+        return this.notes;
+    }
+
+    Clear = () => {
         this.openNotes = [];
         this.notes = [];
-        return result;
     }
 }
