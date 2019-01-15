@@ -59,7 +59,6 @@ class App extends Component {
     return (
       <div className="App">
         <header>
-          <img src=".\flowkey.svg" alt="Flowkey Logo" height="50px" />
           <h1>React Piano Task</h1>
         </header>
         <div className={style.container}>
