@@ -1,9 +1,25 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
-const songQuery = gql` { songs { id title notes } } `;
-const songSave = gql` mutation addSong($song: SongInput!) { addSong(input: $song) { id notes title } }`;
+const songQuery = gql`
+  {
+    songs {
+      id
+      title
+      notes
+    }
+  }
+`;
+const songSave = gql`
+  mutation addSong($song: SongInput!) {
+    addSong(input: $song) {
+      id
+      notes
+      title
+    }
+  }
+`;
 
 export default {
-    songQuery: songQuery,
-    songSave: songSave
-}
+  songQuery,
+  songSave
+};

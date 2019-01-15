@@ -1,47 +1,48 @@
-import { type } from "os";
-
 // The can be reused and is cleared on stop. No pause functionality at this time.
 export default class {
+  constructor(sampler) {
+    this.sampler = sampler;
+    this.endedEarly = false;
+    this.startTimeouts = [];
+    this.endTimeoutes = [];
+  }
 
-    constructor(sampler) {
-        this.sampler = sampler
-        this.endedEarly = false;
-        this.startTimeouts = []
-        this.endTimeoutes = []
-    }
+  playSong(notesToPlay) {
+    let notes = notesToPlay;
+    this.stopSong();
 
-    playSong(notesToPlay) {
+    // Handle JSON notes
+    if (typeof notesToPlay === 'string') notes = JSON.parse(notesToPlay);
 
-        this.stopSong();
+    const times = notes.map(note => note.start);
+    const lowest = Math.min(...times);
 
-        // Handle JSON notes
-        if (typeof notesToPlay === "string") notesToPlay = JSON.parse(notesToPlay);
+    // Give time to fade out if needed.
+    setTimeout(() => {
+      notes.forEach(note => {
+        this.startTimeouts.push(
+          setTimeout(() => {
+            if (!this.endedEarly) this.sampler.playSound(note.midiNo);
+          }, note.start - lowest)
+        );
 
-        var times = notesToPlay.map(note => note.start)
-        var lowest = Math.min(...times)
+        this.endTimeoutes.push(
+          setTimeout(() => {
+            this.sampler.muteSound(note.midiNo);
+          }, note.end - lowest)
+        );
+      });
+    }, 100);
+  }
 
-        // Give time to fade out if needed.
-        setTimeout(() => {
-            notesToPlay.forEach(note => {
-                this.startTimeouts.push(setTimeout(() => {
-                    if (!this.endedEarly) this.sampler.playSound(note.midiNo)
-                }, note.start - lowest))
+  stopSong = () => {
+    // Clear timeouts. We want to mute all future notes
+    this.startTimeouts.forEach(timeout => clearTimeout(timeout));
+    this.endTimeoutes.forEach(timeout => clearTimeout(timeout));
 
-                this.endTimeoutes.push(setTimeout(() => {
-                    this.sampler.muteSound(note.midiNo)
-                }, note.end - lowest));
-            })
-        }, 100)
-    }
+    this.startTimeouts = [];
+    this.endTimeoutes = [];
 
-    stopSong = () => {
-        // Clear timeouts. We want to mute all future notes
-        this.startTimeouts.forEach(timeout => clearTimeout(timeout))
-        this.endTimeoutes.forEach(timeout => clearTimeout(timeout))
-
-        this.startTimeouts = [];
-        this.endTimeoutes = [];
-
-        this.sampler.muteAllForcibly();
-    }
+    this.sampler.muteAllForcibly();
+  };
 }

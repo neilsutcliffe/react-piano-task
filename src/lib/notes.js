@@ -1,4 +1,17 @@
-var CHROMATIC = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B']
+const CHROMATIC = [
+  'C',
+  'Db',
+  'D',
+  'Eb',
+  'E',
+  'F',
+  'Gb',
+  'G',
+  'Ab',
+  'A',
+  'Bb',
+  'B'
+];
 
 /**
  * Get the note name (in scientific notation) of the given midi number
@@ -19,33 +32,29 @@ var CHROMATIC = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'
  */
 
 // 21 = 1st Key, 108 = 88th Key
-const pianoStart = 21
-const pianoEnd = 108
+const pianoStart = 21;
+const pianoEnd = 108;
 
 // Copy paste modified from https://github.com/danigb/music.note.fromMidi/blob/master/test/fromMidi-test.js#L8
-const getName = (midiNumber) => {
-    if (isNaN(midiNumber) || midiNumber < 0 || midiNumber > 127) return null
-    var name = CHROMATIC[midiNumber % 12]
-    var oct = Math.floor(midiNumber / 12) - 1
-    return name + oct
-}
+const getName = midiNumber => {
+  if (midiNumber < 0 || midiNumber > 127) return null;
+  const name = CHROMATIC[midiNumber % 12];
+  const oct = Math.floor(midiNumber / 12) - 1;
+  return name + oct;
+};
 
-const noToName = (no) => {
-    return getName(no)
-}
-
-// This is not optimised. It needs the full list to work.
-const nameToNo = (name) => getAllNos().find(no => (noToName(no) === name))
-
+const noToName = no => getName(no);
 
 const getAllNos = () => {
+  const result = [];
+  for (let i = pianoStart; i <= pianoEnd; i += 1) {
+    result.push(i);
+  }
 
-    var result = []
-    for (var i = pianoStart; i <= pianoEnd; i++) {
-        result.push(i)
-    }
+  return result;
+};
 
-    return result
-}
+// This is not optimised. It needs the full list to work.
+const nameToNo = name => getAllNos().find(no => noToName(no) === name);
 
-module.exports = { nameToNo, noToName, getAllNos, getName }
+module.exports = { nameToNo, noToName, getAllNos, getName };
