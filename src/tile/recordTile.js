@@ -6,7 +6,13 @@ export default ({ recording, onClick }) => {
   const correctText = recording ? 'Stop' : 'Record';
 
   return (
-    <div onClick={onClick} className={correctStyle}>
+    <div
+      role="button"
+      onClick={onClick}
+      onKeyPress={onClick}
+      tabIndex="-1"
+      className={correctStyle}
+    >
       <h2>{correctText}</h2>
     </div>
   );
